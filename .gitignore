@@ -1,0 +1,7 @@
+# downloaded data is large and re-creatable with ingest.py
+zombie_detector/data/
+__pycache__/
+*.pyc
+*.zip
+# stray local outputs; saved results live in zombie_detector/results/
+zombie_detector/*.txt

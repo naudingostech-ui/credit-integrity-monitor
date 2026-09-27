@@ -1,0 +1,119 @@
+﻿=== Full period ===
+Months: 8 (2021-07-01..2022-12-01), label >= 20% via bridge, old = 6+ years
+
+                       signals   AUC  AUC min  P@20  vs baseline
+      vintage + log_old_volume 0.862    0.817 0.231        0.158
+                log_old_volume 0.854    0.792 0.406        0.150
+                   vintage_age 0.844    0.811 0.112        0.139
+           vintage + old_share 0.843    0.811 0.125        0.139
+   vintage + old_share + flush 0.827    0.802 0.238        0.122
+                     old_share 0.817    0.787 0.194        0.113
+          baseline: log_volume 0.704    0.654 0.144        0.000
+vintage + old_share + dormancy 0.630    0.620 0.338       -0.075
+                   flush_ratio 0.626    0.583 0.088       -0.078
+                  v0.2 (all 5) 0.620    0.603 0.400       -0.084
+                     log_burst 0.609    0.430 0.194       -0.095
+                  log_dormancy 0.416    0.351 0.400       -0.288
+
+'AUC min' = worst single month. A robust signal is high on both the mean and the minimum.
+
+=== Time split: first half ===
+Months: 3 (2021-11-01..2022-01-01), label >= 20% via bridge, old = 6+ years
+
+                       signals   AUC  AUC min  P@20  vs baseline
+      vintage + log_old_volume 0.880    0.880 0.283        0.163
+                log_old_volume 0.880    0.878 0.700        0.162
+           vintage + old_share 0.855    0.854 0.183        0.137
+                   vintage_age 0.854    0.852 0.150        0.137
+   vintage + old_share + flush 0.831    0.827 0.283        0.114
+                     old_share 0.825    0.823 0.367        0.107
+          baseline: log_volume 0.718    0.711 0.150        0.000
+                     log_burst 0.653    0.648 0.350       -0.065
+vintage + old_share + dormancy 0.641    0.622 0.450       -0.077
+                  v0.2 (all 5) 0.630    0.611 0.617       -0.088
+                   flush_ratio 0.597    0.583 0.167       -0.121
+                  log_dormancy 0.409    0.398 0.617       -0.309
+
+'AUC min' = worst single month. A robust signal is high on both the mean and the minimum.
+
+=== Time split: second half ===
+Months: 5 (2022-02-01..2022-06-01), label >= 20% via bridge, old = 6+ years
+
+                       signals   AUC  AUC min  P@20  vs baseline
+      vintage + log_old_volume 0.851    0.817  0.20        0.154
+                log_old_volume 0.839    0.792  0.23        0.142
+                   vintage_age 0.837    0.811  0.09        0.141
+           vintage + old_share 0.837    0.811  0.09        0.140
+   vintage + old_share + flush 0.824    0.802  0.21        0.128
+                     old_share 0.813    0.787  0.09        0.116
+          baseline: log_volume 0.696    0.654  0.14        0.000
+                   flush_ratio 0.643    0.587  0.04       -0.053
+vintage + old_share + dormancy 0.623    0.620  0.27       -0.073
+                  v0.2 (all 5) 0.614    0.603  0.27       -0.082
+                     log_burst 0.583    0.430  0.10       -0.113
+                  log_dormancy 0.421    0.351  0.27       -0.276
+
+'AUC min' = worst single month. A robust signal is high on both the mean and the minimum.
+
+=== Threshold: old = 4+ years ===
+Months: 8 (2021-07-01..2022-12-01), label >= 20% via bridge, old = 4+ years
+
+                       signals   AUC  AUC min  P@20  vs baseline
+      vintage + log_old_volume 0.870    0.831 0.206        0.166
+                   vintage_age 0.844    0.811 0.112        0.139
+           vintage + old_share 0.841    0.812 0.125        0.137
+                log_old_volume 0.839    0.794 0.288        0.135
+   vintage + old_share + flush 0.824    0.788 0.231        0.120
+                     old_share 0.779    0.746 0.113        0.074
+          baseline: log_volume 0.704    0.654 0.144        0.000
+                   flush_ratio 0.626    0.583 0.088       -0.078
+vintage + old_share + dormancy 0.625    0.605 0.344       -0.079
+                  v0.2 (all 5) 0.616    0.579 0.425       -0.088
+                     log_burst 0.609    0.430 0.194       -0.095
+                  log_dormancy 0.416    0.351 0.400       -0.288
+
+'AUC min' = worst single month. A robust signal is high on both the mean and the minimum.
+
+=== Threshold: old = 8+ years ===
+Months: 8 (2021-07-01..2022-12-01), label >= 20% via bridge, old = 8+ years
+
+                       signals   AUC  AUC min  P@20  vs baseline
+      vintage + log_old_volume 0.860    0.813 0.244        0.156
+                   vintage_age 0.844    0.811 0.112        0.139
+           vintage + old_share 0.842    0.807 0.131        0.138
+                log_old_volume 0.834    0.791 0.412        0.130
+   vintage + old_share + flush 0.813    0.786 0.250        0.109
+                     old_share 0.807    0.779 0.238        0.102
+          baseline: log_volume 0.704    0.654 0.144        0.000
+                   flush_ratio 0.626    0.583 0.088       -0.078
+vintage + old_share + dormancy 0.619    0.593 0.325       -0.085
+                     log_burst 0.609    0.430 0.194       -0.095
+                  v0.2 (all 5) 0.603    0.579 0.369       -0.101
+                  log_dormancy 0.416    0.351 0.400       -0.288
+
+'AUC min' = worst single month. A robust signal is high on both the mean and the minimum.
+
+=== v0.3 backtest ===
+Label: share (>= 20%), months with >= 20 positives
+
+     as_of  active  positives  P@20  P@20 base  R@20  R@20 base  AUC  AUC base
+2021-11-01    1163         88  0.70       0.15  0.16       0.03 0.88      0.71
+2021-12-01    1148        125  0.80       0.15  0.13       0.02 0.88      0.72
+2022-01-01    1245        127  0.60       0.15  0.09       0.02 0.88      0.72
+2022-02-01     981         58  0.35       0.25  0.12       0.09 0.86      0.75
+2022-03-01     971         32  0.25       0.15  0.16       0.09 0.79      0.70
+2022-04-01     919         24  0.20       0.15  0.17       0.12 0.85      0.70
+2022-05-01     975         21  0.10       0.15  0.10       0.14 0.87      0.68
+2022-06-01     983         22  0.25       0.00  0.23       0.00 0.82      0.65
+
+MEAN:
+active       1048.125
+positives      62.125
+P@20            0.406
+P@20 base       0.144
+R@20            0.143
+R@20 base       0.066
+AUC             0.854
+AUC base        0.704
+
+Detector vs baseline (AUC): +0.150 - adds value

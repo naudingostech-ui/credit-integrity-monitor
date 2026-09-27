@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Could the 2022 zombie-credit flood have been flagged in real time?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1EC; --ink:#1D2A26; --muted:#56655F; --rule:#C9D1CA;
+  --hit:#2F4AA0; --miss:#D5DBD6; --base:#8E9993; --panel:#E3E8E2;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#151B19; --ink:#E4EAE5; --muted:#9AA8A1; --rule:#2E3834;
+    --hit:#8FA6F0; --miss:#2C3531; --base:#6F7B75; --panel:#1C2421;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151B19; --ink:#E4EAE5; --muted:#9AA8A1; --rule:#2E3834;
+  --hit:#8FA6F0; --miss:#2C3531; --base:#6F7B75; --panel:#1C2421;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:1.125rem; line-height:1.6;
+  font-optical-sizing:auto;
+}
+main{max-width:40rem; margin:0 auto; padding:3.5rem 1.25rem 4rem}
+h1,h2,.num,table,.legend,.foot{font-family:"Archivo","Helvetica Neue",Arial,sans-serif}
+h1{font-size:clamp(1.9rem,5vw,2.6rem); line-height:1.12; font-weight:700; letter-spacing:-0.015em; margin:0 0 1rem}
+.lede{font-size:1.25rem; line-height:1.5; color:var(--muted); margin:0 0 2.75rem}
+h2{font-size:1.05rem; font-weight:600; margin:2.75rem 0 .6rem; letter-spacing:.005em}
+p{margin:0 0 1rem}
+ul{margin:0 0 1rem; padding-left:1.2rem}
+li{margin-bottom:.5rem}
+a{color:var(--hit)}
+a:focus-visible{outline:2px solid var(--hit); outline-offset:2px}
+
+/* the one bold element: 20 alerts, how many were real */
+.alerts{margin:2rem 0 .5rem; padding:1.5rem 1.25rem; background:var(--panel); border-radius:6px}
+.alerts h2{margin-top:0}
+.row{display:grid; grid-template-columns:7.5rem 1fr 2.5rem; align-items:center; gap:.75rem; margin:.9rem 0}
+.row .who{font-family:"Archivo",Arial,sans-serif; font-size:.95rem; font-weight:600}
+.row .num{font-size:1.6rem; font-weight:700; text-align:right; font-variant-numeric:tabular-nums}
+.sq{display:grid; grid-template-columns:repeat(20,1fr); gap:3px}
+.sq i{display:block; aspect-ratio:1; border-radius:2px; background:var(--miss)}
+.det .sq i.on{background:var(--hit)}
+.bas .sq i.on{background:var(--base)}
+.det .num{color:var(--hit)}
+.legend{font-size:.85rem; color:var(--muted); margin:.75rem 0 0}
+
+.scroll{overflow-x:auto; margin:1rem 0 1.25rem}
+table{border-collapse:collapse; width:100%; font-size:.95rem; font-variant-numeric:tabular-nums}
+th,td{padding:.55rem .5rem; text-align:right; border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left; padding-left:0}
+thead th{font-weight:600; color:var(--muted); font-size:.85rem}
+td.d{color:var(--hit); font-weight:600}
+
+.ask{margin-top:3rem; padding-top:1.5rem; border-top:2px solid var(--ink)}
+.ask p:first-child{font-size:1.2rem}
+.foot{font-size:.8rem; color:var(--muted); margin-top:2.5rem; line-height:1.5}
+
+@media (max-width:30rem){
+  .row{grid-template-columns:1fr 2.5rem}
+  .row .who{grid-column:1/-1; margin-bottom:-.4rem}
+  .sq{gap:2px}
+}
+@media print{
+  :root{--paper:#fff; --panel:#F1F3F1}
+  main{padding:0; max-width:none}
+  body{font-size:10.5pt}
+  h2{margin-top:1.4rem}
+  .lede{margin-bottom:1.5rem}
+}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Could the 2022 zombie-credit flood have been flagged in real time?</h1>
+<p class="lede">A backtest on public registry data. One explainable signal ranked the projects feeding the flood far better than simply watching volume, and the reason it worked was not the one we expected.</p>
+
+<h2>What happened</h2>
+<p>In late 2021 a bridge let anyone retire carbon credits on the Verra registry and re-issue them as tokens on Polygon. More than 20 million credits moved within months, heavily weighted toward old vintages that the conventional market had passed over. In May 2022 Verra stopped the practice. The lesson for every credit market since: a token is only as trustworthy as the record behind it.</p>
+
+<h2>The question</h2>
+<p>Using only data that was public at the time, could an automated monitor have ranked the projects feeding the bridge above everything else moving in the market?</p>
+
+<h2>How it was tested</h2>
+<ul>
+<li><strong>Data.</strong> CarbonPlan OffsetsDB: 11,659 projects and 530,546 issuance and retirement records across major registries.</li>
+<li><strong>No hindsight.</strong> Each monthly ranking uses only transactions dated up to that month.</li>
+<li><strong>What counts as a hit.</strong> A project where at least 20% of its retirements in a 90-day window carry bridge markers (Toucan or C3 identifiers, Polygon addresses). The markers are used only for grading, never as input.</li>
+<li><strong>Baseline.</strong> Rank projects by how much they moved. A monitor that cannot beat this adds nothing.</li>
+<li><strong>Pass criteria</strong> were written down before the results were seen.</li>
+<li><strong>The signal.</strong> The volume of credits at least six years past their vintage that moved in the window.</li>
+</ul>
+
+<section class="alerts" aria-labelledby="alerts-h">
+  <h2 id="alerts-h">Of the first 20 alerts each month, how many were real</h2>
+  <div class="row det" role="img" aria-label="Detector: about 8 of 20 alerts were real">
+    <span class="who">Detector</span>
+    <span class="sq"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <span class="num">8</span>
+  </div>
+  <div class="row bas" role="img" aria-label="Volume baseline: about 3 of 20 alerts were real">
+    <span class="who">Volume baseline</span>
+    <span class="sq"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <span class="num">3</span>
+  </div>
+  <p class="legend">Average over 8 months, November 2021 to June 2022, about 1,000 active projects per month.</p>
+</section>
+
+<h2>Results</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th></th><th>Detector</th><th>Volume baseline</th></tr></thead>
+  <tbody>
+    <tr><td>Ranking quality (AUC; 0.5 is a coin flip)</td><td class="d">0.85</td><td>0.70</td></tr>
+    <tr><td>Worst single month (AUC)</td><td class="d">0.79</td><td>0.65</td></tr>
+    <tr><td>First half only, Nov 2021 to Jan 2022</td><td class="d">0.88</td><td>0.72</td></tr>
+    <tr><td>Second half only, Feb to Jun 2022</td><td class="d">0.84</td><td>0.70</td></tr>
+    <tr><td>“Old” set at 4+ years instead of 6</td><td class="d">0.84</td><td>0.70</td></tr>
+    <tr><td>“Old” set at 8+ years instead of 6</td><td class="d">0.83</td><td>0.70</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The monitor was strongest at the start of the wave, when about 7 in 10 of its top alerts were real, roughly nine times better than picking at random. That is when an alert is worth the most.</p>
+
+<h2>What we got wrong along the way</h2>
+<p>We started with the popular story: dormant projects waking up when a price appeared. The data disagreed. Dormancy ranked bridged projects worse than chance (AUC 0.42). Most of the flow came from active projects clearing out old inventory. A five-signal model scored 0.62 while the best single signal inside it scored 0.85, so the extra signals were adding noise. Dormancy now serves as an explanation tag on alerts, not as a ranking input.</p>
+
+<h2>Limits</h2>
+<ul>
+<li>The grading label is “routed through a bridge”, not “low quality”. This shows the monitor finds the documented 2022 mechanism, not that every flagged credit is bad.</li>
+<li>It is one historical episode. Whether the signal carries over to the next wave, including nature and biodiversity credits, is untested.</li>
+<li>The final signal was chosen after comparing 12 candidates on the same months. A one-signal model limits that selection bias but does not remove it, which is why the time-split and threshold tests are shown above.</li>
+<li>Live monitoring needs direct registry ingestion; the public dataset used here stopped updating regularly in mid-2026.</li>
+</ul>
+
+<div class="ask">
+<p>Nature and biodiversity credit markets are forming now, and the same failure, weak records made liquid, is possible there. I am building independent integrity monitoring for these markets: registry-to-chain reconciliation, inventory anomaly detection and on-chain flow analysis, with every alert explained.</p>
+<p>If you work on credit ratings, due diligence or registry operations, I would value 20 minutes of your critique.</p>
+<p><strong>Ed Orlovski</strong><br><a href="mailto:naudingostech@gmail.com">naudingostech@gmail.com</a></p>
+</div>
+
+<p class="foot">Data: CarbonPlan (2024), “OffsetsDB”, carbonplan.org/research/offsets-db, CC BY 4.0. Snapshot of June 2026. Code and full backtest: see the repository README.</p>
+
+</main>
+</body>
+</html>
