@@ -4,7 +4,7 @@ Independent, explainable integrity monitoring for environmental credit markets.
 The first module is a **zombie credit detector**, backtested on the 2021-22 episode
 in which millions of old, low-demand carbon credits were bridged onto Polygon.
 
-**Case study (one page):** [`docs/index.html`](docs/index.html) (open it in a browser)
+**Case study (one page):** https://naudingostech-ui.github.io/credit-integrity-monitor/
 
 ## The question
 
