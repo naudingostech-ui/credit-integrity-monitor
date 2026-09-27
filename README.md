@@ -91,7 +91,8 @@ zombie_detector/
 
 ## Data
 
-CarbonPlan (2024), *OffsetsDB*, https://carbonplan.org/research/offsets-db, licensed CC BY 4.0.
+CarbonPlan, *OffsetsDB*, https://carbonplan.org/research/offsets-db, used under CarbonPlan's
+[terms of data access](https://github.com/carbonplan/offsets-db-data/blob/main/TERMS_OF_DATA_ACCESS).
 This project is independent and not affiliated with CarbonPlan.
 
 ## Contact
