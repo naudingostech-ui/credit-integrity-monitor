@@ -1,5 +1,6 @@
 # downloaded data is large and re-creatable with ingest.py
 zombie_detector/data/
+zombie_detector/data_vrod/
 __pycache__/
 *.pyc
 *.zip

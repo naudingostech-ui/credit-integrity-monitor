@@ -19,6 +19,7 @@ Usage:
     python detector.py --as-of 2022-03-01 --top 25
 """
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -26,7 +27,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-DATA = Path(__file__).parent / "data"
+# Which prepared dataset to use. Default: data/ (OffsetsDB via ingest.py).
+# Set CIM_DATA_DIR=data_vrod to run every script on the Berkeley VROD data instead.
+DATA = Path(__file__).parent / os.environ.get("CIM_DATA_DIR", "data")
 
 # Bridge / tokenization markers in retirement records (validation label, not a signal)
 BRIDGE_RE = re.compile(
@@ -39,7 +42,7 @@ BRIDGE_RE = re.compile(
 # The other signals are kept as EXPLANATION tags, not ranking inputs:
 # log_dormancy ranks in the wrong direction (AUC 0.42) but is precise at the top (P@20 0.40).
 WEIGHTS = {"log_old_volume": 1.0}
-FLAGS = ["vintage_age", "old_share", "log_dormancy", "flush_ratio", "log_burst"]
+FLAGS = ["vintage_age", "old_share", "log_dormancy", "flush_ratio", "log_burst", "log_tx_spike"]
 
 REASONS = {
     "vintage_age": "old vintages",
@@ -49,6 +52,7 @@ REASONS = {
     "log_burst": "sudden burst",
     "log_old_volume": "large volume of old credits moved",
     "log_volume": "high volume",
+    "log_tx_spike": "one retirement far above its usual size",
 }
 
 
@@ -150,6 +154,16 @@ def features(credits, projects, as_of, window_days=90, history_years=3,
     hist_vol = h.groupby("project_id")["quantity"].sum().reindex(f.index).fillna(0)
     expected = hist_vol / (365 * history_years / window_days)
     f["log_burst"] = np.log((f["win_volume"] + 1) / (expected + 1))
+
+    # 5) transaction spike: largest single retirement in the window vs. the project's
+    #    typical (median) retirement over the history period. Hypothesis suggested by
+    #    CarbonPlan (Oct 2026): bridge transactions were huge relative to the project's
+    #    normal retirements. No retirement history -> typical size 0 -> spike = log(size).
+    hr = h[h["transaction_type"] == "retirement"]
+    typical = hr.groupby("project_id")["quantity"].median().reindex(f.index).fillna(0)
+    rw = win[win["transaction_type"] == "retirement"]
+    largest = rw.groupby("project_id")["quantity"].max().reindex(f.index).fillna(0)
+    f["log_tx_spike"] = np.log((largest + 1) / (typical + 1))
 
     f = f.fillna({"vintage_age": 0, "old_share": 0, "flush_ratio": 0})
     f["log_volume"] = np.log1p(f["win_volume"])

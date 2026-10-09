@@ -1,0 +1,19 @@
+Months: 8 (2021-07-01..2022-12-01), label >= 20% via bridge, old = 6+ years
+
+                       signals   AUC  AUC min  P@20  vs baseline
+                log_old_volume 0.819    0.708 0.381        0.107
+   vintage + old_share + flush 0.793    0.722 0.256        0.080
+      vintage + log_old_volume 0.792    0.684 0.256        0.080
+ log_old_volume + log_tx_spike 0.787    0.656 0.363        0.075
+                     old_share 0.778    0.694 0.231        0.066
+           vintage + old_share 0.777    0.678 0.188        0.065
+                   vintage_age 0.774    0.680 0.194        0.062
+                  v0.2 (all 5) 0.740    0.687 0.400        0.028
+vintage + old_share + dormancy 0.734    0.684 0.387        0.021
+          baseline: log_volume 0.712    0.634 0.231        0.000
+                   flush_ratio 0.668    0.605 0.125       -0.044
+                  log_tx_spike 0.666    0.470 0.262       -0.047
+                     log_burst 0.595    0.385 0.188       -0.118
+                  log_dormancy 0.550    0.491 0.375       -0.162
+
+'AUC min' = worst single month. A robust signal is high on both the mean and the minimum.

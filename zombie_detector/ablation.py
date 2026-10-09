@@ -34,6 +34,8 @@ SUBSETS = {
     "vintage + old_share + dormancy": {"vintage_age": 1, "old_share": 1, "log_dormancy": 1},
     "vintage + old_share + flush": {"vintage_age": 1, "old_share": 1, "flush_ratio": 1},
     "vintage + log_old_volume": {"vintage_age": 1, "log_old_volume": 1},
+    "log_tx_spike": {"log_tx_spike": 1},
+    "log_old_volume + log_tx_spike": {"log_old_volume": 1, "log_tx_spike": 1},
     "v0.2 (all 5)": {"vintage_age": 1, "old_share": 1, "log_dormancy": 1, "flush_ratio": 1, "log_burst": 0.3},
 }
 

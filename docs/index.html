@@ -130,10 +130,12 @@ td.d{color:var(--hit); font-weight:600}
     <tr><td>Second half only, Feb to Jun 2022</td><td class="d">0.84</td><td>0.70</td></tr>
     <tr><td>“Old” set at 4+ years instead of 6</td><td class="d">0.84</td><td>0.70</td></tr>
     <tr><td>“Old” set at 8+ years instead of 6</td><td class="d">0.83</td><td>0.70</td></tr>
+    <tr><td>Same test on Berkeley’s registry files</td><td class="d">0.82</td><td>0.71</td></tr>
   </tbody>
 </table>
 </div>
 <p>The monitor was strongest at the start of the wave, when about 7 in 10 of its top alerts were real, roughly nine times better than picking at random. That is when an alert is worth the most.</p>
+<p>To rule out a quirk in one dataset, the whole test was rerun on raw registry files published by the Berkeley Carbon Trading Project, processed with separate code. The same signal came out on top again, without re-tuning.</p>
 
 <h2>What we got wrong along the way</h2>
 <p>We started with the popular story: dormant projects waking up when a price appeared. The data disagreed. Dormancy ranked bridged projects worse than chance (AUC 0.42). Most of the flow came from active projects clearing out old inventory. A five-signal model scored 0.62 while the best single signal inside it scored 0.85, so the extra signals were adding noise. Dormancy now serves as an explanation tag on alerts, not as a ranking input.</p>
@@ -142,7 +144,7 @@ td.d{color:var(--hit); font-weight:600}
 <ul>
 <li>The grading label is “routed through a bridge”, not “low quality”. This shows the monitor finds the documented 2022 mechanism, not that every flagged credit is bad.</li>
 <li>It is one historical episode. Whether the signal carries over to the next wave, including nature and biodiversity credits, is untested.</li>
-<li>The final signal was chosen after comparing 12 candidates on the same months. A one-signal model limits that selection bias but does not remove it, which is why the time-split and threshold tests are shown above.</li>
+<li>The final signal was chosen after comparing 12 candidates on the same months. A one-signal model limits that selection bias but does not remove it, which is why the time-split, threshold and second-source tests are shown above. On the second source, the worst month (March 2022) was barely above the baseline.</li>
 <li>Live monitoring needs direct registry ingestion; the public dataset used here stopped updating regularly in mid-2026.</li>
 </ul>
 
@@ -152,7 +154,7 @@ td.d{color:var(--hit); font-weight:600}
 <p><strong>Ed Orlovski</strong><br><a href="mailto:naudingostech@gmail.com">naudingostech@gmail.com</a></p>
 </div>
 
-<p class="foot">Data: CarbonPlan, “OffsetsDB”, carbonplan.org/research/offsets-db, used under CarbonPlan’s terms of data access; this project is not affiliated with CarbonPlan. Snapshot of June 2026. Code and full backtest: <a href="https://github.com/naudingostech-ui/credit-integrity-monitor">github.com/naudingostech-ui/credit-integrity-monitor</a>.</p>
+<p class="foot">Data: Berkeley Carbon Trading Project, Voluntary Registry Offsets Database, registry files v2026-08, CC BY 4.0. CarbonPlan, “OffsetsDB”, carbonplan.org/research/offsets-db, used under CarbonPlan’s terms of data access; this project is not affiliated with CarbonPlan. Snapshot of June 2026. Code and full backtest: <a href="https://github.com/naudingostech-ui/credit-integrity-monitor">github.com/naudingostech-ui/credit-integrity-monitor</a>.</p>
 
 </main>
 </body>

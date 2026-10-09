@@ -25,9 +25,15 @@ One signal, the volume of credits at least six years past their vintage that mov
 | Second half only, Feb to Jun 2022       | **0.84** | 0.70 |
 | "Old" = 4+ years instead of 6           | **0.84** | 0.70 |
 | "Old" = 8+ years instead of 6           | **0.83** | 0.70 |
+| Same test on Berkeley's registry files  | **0.82** | 0.71 |
 
 8 monthly evaluations, about 1,000 active projects each. Pass criteria were fixed before
 the results were seen.
+
+**Second data source.** The whole test was rerun on the raw registry files published by the
+Berkeley Carbon Trading Project, processed with separate code (`ingest_vrod.py`). The same
+signal came out on top again, without any re-tuning. Both sources draw on the same registries,
+so this rules out a quirk in one dataset's processing, not the limits of a single episode.
 
 ## Reproduce it
 
@@ -70,8 +76,9 @@ exposed both problems; they are kept so anyone can rerun the same checks.
 - The label is "routed through a bridge", not "low quality".
 - One historical episode. Transfer to future waves, including nature and biodiversity
   credits, is untested.
-- The final signal was chosen from 12 candidates on the same months; the time split and
-  threshold checks above exist for that reason.
+- The final signal was chosen from 12 candidates on the same months; the time split,
+  threshold checks and the second data source exist for that reason. Its worst month on the
+  Berkeley data (March 2022) was barely above the baseline.
 - OffsetsDB stopped updating regularly in mid-2026, so live monitoring needs direct registry ingestion.
 
 ## Layout
@@ -79,7 +86,8 @@ exposed both problems; they are kept so anyone can rerun the same checks.
 ```
 docs/index.html            one-page case study
 zombie_detector/
-  ingest.py                source -> internal schema (the only file that knows about OffsetsDB)
+  ingest.py                OffsetsDB -> internal schema
+  ingest_vrod.py           Berkeley registry files -> the same schema (second source)
   detector.py              point-in-time signals, score and explanation tags
   backtest.py              monthly evaluation against the volume baseline
   ablation.py              each signal and combination on the same months
@@ -90,6 +98,10 @@ zombie_detector/
 ```
 
 ## Data
+
+Berkeley Carbon Trading Project, *Voluntary Registry Offsets Database*, registry files v2026-08,
+https://gspp.berkeley.edu/berkeley-carbon-trading-project/offsets-database, CC BY 4.0.
+The raw registry files are not redistributed here; download them from the link above.
 
 CarbonPlan, *OffsetsDB*, https://carbonplan.org/research/offsets-db, used under CarbonPlan's
 [terms of data access](https://github.com/carbonplan/offsets-db-data/blob/main/TERMS_OF_DATA_ACCESS).
