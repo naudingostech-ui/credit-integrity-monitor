@@ -42,7 +42,7 @@ BRIDGE_RE = re.compile(
 # The other signals are kept as EXPLANATION tags, not ranking inputs:
 # log_dormancy ranks in the wrong direction (AUC 0.42) but is precise at the top (P@20 0.40).
 WEIGHTS = {"log_old_volume": 1.0}
-FLAGS = ["vintage_age", "old_share", "log_dormancy", "flush_ratio", "log_burst", "log_tx_spike"]
+FLAGS = ["vintage_age", "old_share", "log_dormancy", "flush_ratio", "log_burst", "log_tx_spike", "log_day_spike"]
 
 REASONS = {
     "vintage_age": "old vintages",
@@ -53,6 +53,8 @@ REASONS = {
     "log_old_volume": "large volume of old credits moved",
     "log_volume": "high volume",
     "log_tx_spike": "one retirement far above its usual size",
+    "log_day_spike": "one day of retirements far above its usual size",
+    "log_3day_spike": "three days of retirements far above usual",
 }
 
 
@@ -164,6 +166,24 @@ def features(credits, projects, as_of, window_days=90, history_years=3,
     rw = win[win["transaction_type"] == "retirement"]
     largest = rw.groupby("project_id")["quantity"].max().reindex(f.index).fillna(0)
     f["log_tx_spike"] = np.log((largest + 1) / (typical + 1))
+
+    # 6) spike v2, after CarbonPlan's follow-up (Oct 2026): registries split one sale into many
+    #    rows (one per vintage or serial block), and test transfers of 1-10 credits drag the
+    #    "typical" size down. So: drop rows under 10 credits, add up each project's retirements
+    #    per calendar day (or per 3-day bucket), then compare the largest daily total in the
+    #    window with the project's median daily total over the history period.
+    def _bucket_spike(days):
+        def buckets(df):
+            r = df[(df["transaction_type"] == "retirement") & (df["quantity"] >= 10)]
+            b = r["transaction_date"].dt.floor("D")
+            if days > 1:
+                b = b - pd.to_timedelta((b - pd.Timestamp("2000-01-01", tz="UTC")).dt.days % days, unit="D")
+            return r.assign(b=b).groupby(["project_id", "b"])["quantity"].sum()
+        typ = buckets(h).groupby(level=0).median().reindex(f.index).fillna(0)
+        big = buckets(win).groupby(level=0).max().reindex(f.index).fillna(0)
+        return np.log((big + 1) / (typ + 1))
+    f["log_day_spike"] = _bucket_spike(1)
+    f["log_3day_spike"] = _bucket_spike(3)
 
     f = f.fillna({"vintage_age": 0, "old_share": 0, "flush_ratio": 0})
     f["log_volume"] = np.log1p(f["win_volume"])

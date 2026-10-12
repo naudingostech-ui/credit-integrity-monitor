@@ -36,6 +36,10 @@ SUBSETS = {
     "vintage + log_old_volume": {"vintage_age": 1, "log_old_volume": 1},
     "log_tx_spike": {"log_tx_spike": 1},
     "log_old_volume + log_tx_spike": {"log_old_volume": 1, "log_tx_spike": 1},
+    "day spike (v2)": {"log_day_spike": 1},
+    "3-day spike (v2)": {"log_3day_spike": 1},
+    "log_old_volume + day spike": {"log_old_volume": 1, "log_day_spike": 1},
+    "log_old_volume + 3-day spike": {"log_old_volume": 1, "log_3day_spike": 1},
     "v0.2 (all 5)": {"vintage_age": 1, "old_share": 1, "log_dormancy": 1, "flush_ratio": 1, "log_burst": 0.3},
 }
 
